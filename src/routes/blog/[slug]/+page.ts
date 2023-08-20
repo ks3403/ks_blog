@@ -1,12 +1,14 @@
 // @ts-ignore
 
-
-
-export const load = async ({ fetch }) => {
-    const response = await fetch(`/api/posts`)
-    const posts = await response.json()
+export async function load({ params }){
+    const post = await import(`../${params.slug}.md`)
+    console.log("post!!!", post)
+    const { title, date } = post.metadata
+    const content = post.default
 
     return {
-        posts
+        content,
+        title,
+        date,
     }
 }
